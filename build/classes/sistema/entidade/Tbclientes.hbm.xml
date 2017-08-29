@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25/08/2017 19:03:46 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="sistema.entidade.Tbclientes" table="tbclientes" catalog="dbinfox" optimistic-lock="version">
+        <id name="idcli" type="java.lang.Integer">
+            <column name="idcli" />
+            <generator class="identity" />
+        </id>
+        <property name="nomecli" type="string">
+            <column name="nomecli" length="50" not-null="true" />
+        </property>
+        <property name="endcli" type="string">
+            <column name="endcli" length="100" />
+        </property>
+        <property name="bairrocli" type="string">
+            <column name="bairrocli" length="100" />
+        </property>
+        <property name="cidadecli" type="string">
+            <column name="cidadecli" length="30" />
+        </property>
+        <property name="cepcli" type="string">
+            <column name="cepcli" length="20" />
+        </property>
+        <property name="fonecli" type="string">
+            <column name="fonecli" length="30" not-null="true" />
+        </property>
+        <property name="emailcli" type="string">
+            <column name="emailcli" length="50" />
+        </property>
+        <property name="cpfcli" type="string">
+            <column name="cpfcli" length="20" unique="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true" />
+        </property>
+        <set name="tboses" table="tbos" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idcli" not-null="true" />
+            </key>
+            <one-to-many class="sistema.entidade.Tbos" />
+        </set>
+    </class>
+</hibernate-mapping>

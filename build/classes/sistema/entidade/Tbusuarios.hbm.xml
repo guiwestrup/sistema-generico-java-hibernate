@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25/08/2017 19:03:46 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="sistema.entidade.Tbusuarios" table="tbusuarios" catalog="dbinfox" optimistic-lock="version">
+        <id name="idusuario" type="int">
+            <column name="idusuario" />
+            <generator class="assigned" />
+        </id>
+        <property name="usuario" type="string">
+            <column name="usuario" length="50" not-null="true" />
+        </property>
+        <property name="fone" type="string">
+            <column name="fone" length="15" />
+        </property>
+        <property name="login" type="string">
+            <column name="login" length="15" not-null="true" unique="true" />
+        </property>
+        <property name="senha" type="string">
+            <column name="senha" length="15" not-null="true" />
+        </property>
+        <property name="perfil" type="string">
+            <column name="perfil" length="20" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

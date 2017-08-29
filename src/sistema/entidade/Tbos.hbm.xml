@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25/08/2017 19:03:46 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="sistema.entidade.Tbos" table="tbos" catalog="dbinfox" optimistic-lock="version">
+        <id name="os" type="java.lang.Integer">
+            <column name="os" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="tbclientes" class="sistema.entidade.Tbclientes" fetch="select">
+            <column name="idcli" not-null="true" />
+        </many-to-one>
+        <property name="dataOs" type="timestamp">
+            <column name="data_os" length="19" not-null="true" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="tipo" length="15" not-null="true" />
+        </property>
+        <property name="situacao" type="string">
+            <column name="situacao" length="20" not-null="true" />
+        </property>
+        <property name="equipamento" type="string">
+            <column name="equipamento" length="150" not-null="true" />
+        </property>
+        <property name="defeito" type="string">
+            <column name="defeito" length="150" not-null="true" />
+        </property>
+        <property name="servico" type="string">
+            <column name="servico" length="150" />
+        </property>
+        <property name="idUsuario" type="int">
+            <column name="id_usuario" not-null="true" />
+        </property>
+        <property name="valor" type="big_decimal">
+            <column name="valor" precision="10" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
