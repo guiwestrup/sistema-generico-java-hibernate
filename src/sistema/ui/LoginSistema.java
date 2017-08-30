@@ -105,9 +105,9 @@ public class LoginSistema extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtLoginUsu = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtLoginSenha = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        txtLoginSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login Sistema Genérico");
@@ -162,7 +162,7 @@ public class LoginSistema extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtLoginUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(txtLoginSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -218,7 +218,7 @@ public class LoginSistema extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtLoginSenha;
+    private javax.swing.JPasswordField txtLoginSenha;
     private javax.swing.JTextField txtLoginUsu;
     // End of variables declaration//GEN-END:variables
 }
