@@ -97,7 +97,7 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         txtCadCliId.setEditable(false);
 
-        btnCadCliAltera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistema/ui/alterabttn.png"))); // NOI18N
+        btnCadCliAltera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistema/imagens/alterabttn.png"))); // NOI18N
         btnCadCliAltera.setToolTipText("Cliente para salvar as alterações");
         btnCadCliAltera.setEnabled(false);
         btnCadCliAltera.addActionListener(new java.awt.event.ActionListener() {
@@ -190,7 +190,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblCadCliSit))
@@ -228,7 +228,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                     .addComponent(btnCadCliAdiciona)
                     .addComponent(btnCadCliAltera)
                     .addComponent(btnCadCliApagar))
-                .addGap(21, 21, 21))
+                .addGap(51, 51, 51))
         );
 
         setSize(new java.awt.Dimension(569, 351));

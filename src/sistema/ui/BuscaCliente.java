@@ -42,7 +42,8 @@ public class BuscaCliente extends javax.swing.JFrame {
     //setando o cliente na tabela
         public void setar_campos()
     {
-        int setar = tblBuscliResultado.getSelectedRow();       
+        int setar = tblBuscliResultado.getSelectedRow();
+        JOptionPane.showMessageDialog(null, setar);
         for (int i=0;i<aux.length;i++)
         {
         aux[i] = tblBuscliResultado.getModel().getValueAt(setar, i).toString();
