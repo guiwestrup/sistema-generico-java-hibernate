@@ -313,7 +313,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
         }
     }
     //Método que o botão altera cliente chama

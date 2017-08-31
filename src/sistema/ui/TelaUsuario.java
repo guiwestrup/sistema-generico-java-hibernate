@@ -25,6 +25,8 @@ public class TelaUsuario extends javax.swing.JFrame {
     public String senha;
     public String ConfirmaSenha;
     public String[] aux = new String[4]; 
+    //criando uma variável para a tabela
+    private DefaultTableModel tabela;
     /**
      * Creates new form TelaUsuario
      */
@@ -78,6 +80,7 @@ public class TelaUsuario extends javax.swing.JFrame {
         cabecaTabela.add("Nome");
         cabecaTabela.add("Login");
         cabecaTabela.add("Perfil");
+        cabecaTabela.add("Telefone");
         
         for (Object o : resultado)
         {
@@ -87,6 +90,7 @@ public class TelaUsuario extends javax.swing.JFrame {
             umaLinha.add(usu.getUsuario());
             umaLinha.add(usu.getLogin());
             umaLinha.add(usu.getPerfil());
+            umaLinha.add(usu.getFone());
             dadoTabela.add(umaLinha);
         }
         tblUsu.setModel(new DefaultTableModel(dadoTabela, cabecaTabela));
@@ -141,7 +145,7 @@ public class TelaUsuario extends javax.swing.JFrame {
         }
         else
         {
-            executa_Alterar_Usuario("UPDATE `tbusuarios` SET `usuario` = '"+txtUsuNome.getText()+"', `fone` ='"+txtUsuFone.getText()+"', `login` ='"+txtUsuLogin.getText()+"', `perfil` = '"+cmbUsuPerfil.getSelectedItem().toString()+"')"); 
+            executa_Alterar_Usuario("UPDATE `tbusuarios` SET `usuario` = '"+txtUsuNome.getText()+"', `fone` ='"+txtUsuFone.getText()+"', `login` ='"+txtUsuLogin.getText()+"', `perfil` = '"+cmbUsuPerfil.getSelectedItem().toString()+"' where `idusuario`='"+txtUsuId.getText()+"'"); 
         }
     }
     
@@ -154,19 +158,20 @@ public class TelaUsuario extends javax.swing.JFrame {
         Query query = session.createSQLQuery(sql);
         query.executeUpdate();
         session.getTransaction().commit();
-        }
-        catch (HibernateException e)
-        {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, e);
-        }
         txtUsuNome.setText(null);
         txtUsuId.setText(null);
         txtUsuFone.setText(null);
         txtUsuLogin.setText(null);
         txtUsuSenha.setText(null);
         txtUsuConfSenha.setText(null);
-        JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+        JOptionPane.showMessageDialog(null, "Alteração efetuado com sucesso!");
+        }
+        catch (HibernateException e)
+        {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
+        }
+
     }
     //Executa a alteração de senha do usuário selecionado
     public void altera_senha()
@@ -193,7 +198,37 @@ public class TelaUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "A confirmação da senha tem que estar igual a senha!");
         }
     }
-    //setando o cliente na tabela
+    public void inativar_usuario()
+    {
+            int apagar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair","Atenção",JOptionPane.YES_NO_OPTION);
+            if (apagar ==JOptionPane.YES_OPTION)
+            {
+             try
+                {
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                session.beginTransaction();
+                Query query = session.createSQLQuery("UPDATE `tbusuarios` SET `status` = '0' where `idusuario`='"+txtUsuId.getText()+"'");
+                query.executeUpdate();
+                session.getTransaction().commit();
+                JOptionPane.showMessageDialog(null, "Inativado com sucesso!");
+                txtUsuNome.setText(null);
+                txtUsuId.setText(null);
+                txtUsuFone.setText(null);
+                txtUsuLogin.setText(null);
+                txtUsuSenha.setText(null);
+                txtUsuConfSenha.setText(null);
+                //usando a variável da tabela para colocar dados nela, nesse caso, apagar o que tem dentro da tabela.
+                tabela = (DefaultTableModel)tblUsu.getModel();
+                tabela.setNumRows(0);
+                }
+            catch (HibernateException e)
+            {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, e);
+            }   
+            }
+    }
+    //Selecionando dentro da Jtable e inserindo os dados nos txt's
         public void setar_campos()
     {
         int setar = tblUsu.getSelectedRow();
@@ -201,18 +236,9 @@ public class TelaUsuario extends javax.swing.JFrame {
         txtUsuNome.setText(tblUsu.getModel().getValueAt(setar, 1).toString());
         txtUsuLogin.setText(tblUsu.getModel().getValueAt(setar, 2).toString());
         cmbUsuPerfil.setSelectedItem(tblUsu.getModel().getValueAt(setar,3).toString());
+        txtUsuFone.setText(tblUsu.getModel().getValueAt(setar, 4).toString());
         btnUsuAltSenha.setEnabled(true);
-        /*for (int i=0;i<aux.length;i++)
-        {
-            JOptionPane.showMessageDialog(this, aux[i]);
-            aux[i] = tblUsu.getModel().getValueAt(setar, i).toString();
-            lblUsuId.setText(aux[0]);
-            txtUsuNome.setText(aux[1]);
-            txtUsuFone.setText(aux[2]);
-            txtUsuLogin.setText(aux[3]);
-            txtUsuSenha.setText(senha);
-            cmbUsuPerfil.setSelectedItem(perfil);
-        }*/
+        btnUsuApaga.setEnabled(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -309,6 +335,11 @@ public class TelaUsuario extends javax.swing.JFrame {
         btnUsuApaga.setToolTipText("Clique para inativar");
         btnUsuApaga.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuApaga.setEnabled(false);
+        btnUsuApaga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuApagaActionPerformed(evt);
+            }
+        });
 
         txtUsuPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -508,7 +539,7 @@ public class TelaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuPesquisaKeyReleased
 
     private void btnUsuAlteraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuAlteraActionPerformed
-        
+        alterar_usuario();
     }//GEN-LAST:event_btnUsuAlteraActionPerformed
 
     private void btnUsuAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuAddActionPerformed
@@ -526,6 +557,10 @@ public class TelaUsuario extends javax.swing.JFrame {
     private void btnUsuAltSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuAltSenhaActionPerformed
         altera_senha();
     }//GEN-LAST:event_btnUsuAltSenhaActionPerformed
+
+    private void btnUsuApagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuApagaActionPerformed
+        inativar_usuario();
+    }//GEN-LAST:event_btnUsuApagaActionPerformed
 
     /**
      * @param args the command line arguments
